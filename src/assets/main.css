@@ -2,28 +2,28 @@
 
 @font-face {
   font-family: 'Involve';
-  src: url('public/fonts/Involve-SemiBold.otf') format('woff2');
+  src: url('/fonts/Involve-SemiBold.otf') format('woff2');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Involve';
-  src: url('public/fonts/Involve-Regular.otf') format('woff2');
+  src: url('/fonts/Involve-Regular.otf') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Denistina';
-  src: url('public/fonts/denistina_en.ttf') format('woff2');
+  src: url('/fonts/denistina_en.ttf') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Azkia';
-  src: url('public/fonts/Azkia demo.otf') format('woff2');
+  src: url('/fonts/Azkia demo.otf') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
