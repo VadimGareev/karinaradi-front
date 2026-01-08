@@ -1,31 +1,68 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const isOpen = ref(false)
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value
+}
+const closeMenu = () => {
+  isOpen.value = false
+  buyersOpen.value = false
+}
+
+const onKeydown = (e) => {
+  if (e.key === 'Escape' && isOpen.value) closeMenu()
+}
+
+const buyersOpen = ref(false)
+
+const toggleBuyers = () => {
+  buyersOpen.value = !buyersOpen.value
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
+</script>
 
 <template>
   <header class="header">
     <RouterLink to="/"
       ><div class="logo"><img src="/img/logo.png" alt="KarinaRadi" /></div
     ></RouterLink>
-    <nav class="nav">
+
+    <div id="overlay" :class="{ show: isOpen }" @click="closeMenu" />
+
+    <nav :class="['nav', { 'mobile-open': isOpen }]">
       <div class="nav-item">
-        <RouterLink to="/">Главная</RouterLink>
+        <RouterLink to="/" @click="closeMenu">Главная</RouterLink>
       </div>
       <div class="nav-item">
-        <RouterLink to="/catalog">Каталог</RouterLink>
+        <RouterLink to="/catalog" @click="closeMenu">Каталог</RouterLink>
       </div>
       <div class="nav-item">
-        <div>Покупателям</div>
-        <ul class="dropdown">
+        <button
+          style="cursor: pointer; text-transform: uppercase"
+          class="buyers-toggle"
+          @click="toggleBuyers"
+          type="button"
+        >
+          Покупателям
+          <span class="arrow" :class="{ open: buyersOpen }"></span>
+        </button>
+        <ul class="dropdown" :class="{ open: buyersOpen }" v-auto-animate>
           <li>
-            <RouterLink to="/refunds">Условия обмена и возврата</RouterLink>
+            <RouterLink to="/refunds" @click="closeMenu">Условия обмена и возврата</RouterLink>
           </li>
           <li>
-            <RouterLink to="/delivery">Доставка</RouterLink>
+            <RouterLink to="/delivery" @click="closeMenu">Доставка</RouterLink>
           </li>
           <li>
-            <RouterLink to="/about">О нас</RouterLink>
+            <RouterLink to="/about" @click="closeMenu">О нас</RouterLink>
           </li>
           <li>
-            <RouterLink to="/offer">Оферта</RouterLink>
+            <RouterLink to="/offer" @click="closeMenu">Оферта</RouterLink>
           </li>
         </ul>
       </div>
@@ -63,7 +100,15 @@
         </div>
       </RouterLink>
     </div>
-    <div class="burger">☰</div>
+    <button
+      class="burger"
+      @click="toggleMenu"
+      :aria-expanded="isOpen"
+      aria-label="Меню"
+      type="button"
+    >
+      ☰
+    </button>
   </header>
 </template>
 
